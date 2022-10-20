@@ -2,8 +2,13 @@
 
 
 # Build From Source
+1. Build a conda environment python=3.8
+   ```
+   conda create -n your_env python=3.8
+   conda activate your_env
+   ```
 
-1. Install pytorch with CUDA 11.3 . See [pytorch documentation](https://pytorch.org/get-started/locally/)
+2. Install pytorch with CUDA 11.3 . See [pytorch documentation](https://pytorch.org/get-started/locally/)
    ```
    conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
    export CUB_DIR=/usr/local/cuda-11.3/include/cub
@@ -11,26 +16,28 @@
    export CUDACXX=/usr/local/cuda-11.3/bin/nvcc
    ```
 
-2. Install Requirements
+3. Install Requirements
    ```
    pip install -r requirements.txt
    ```
-3. Then, install FBGEMM_GPU from source
+4. Then, install FBGEMM_GPU from source
    ```
    cd third_party/fbgemm/fbgemm_gpu/
    conda install scikit-build jinja2 ninja cmake hypothesis
    python setup.py install
    ```
 
-4. Next, install FEC (FBGEMM_GPU included) from source (included in third_party folder of torchrec)
+5. Next, install FEC (FBGEMM_GPU included) from source (included in third_party folder of torchrec)
    ```
    python setup.py install develop
    ```
 
-5. Run FEC
+6. Run FEC
+   ## Examples
+   use FEC to train model WDL on 8 GPU workers with local batch size 8192
    ```
    cd example
-   python setup.py install develop
+   ./run.sh -s FEC -d criteo-tb -m WDL -b 8192 -w 8 -h -1
    ```
    ## Arguments
    * Systems 
